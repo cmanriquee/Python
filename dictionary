@@ -1,0 +1,22 @@
+name = input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+di = dict()
+
+for lin in handle :
+    lin = lin.strip()
+    if lin.startswith('From ') :
+        sender = lin.split()
+        spammer = sender[1]
+        di[spammer] = di.get(spammer,0) + 1
+    else:
+        continue
+
+maximum = None
+spam = None
+
+for spammer,count in di.items():
+    if maximum is None or count > maximum:
+        spam = spammer
+        maximum = count
+print(spam,maximum)
