@@ -1,0 +1,22 @@
+name = input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+di = dict()
+
+for lin in handle :
+    lin = lin.strip()
+    if lin.startswith('From ') :
+        sender = lin.split()
+        spammer = sender[1]
+        di[spammer] = di.get(spammer,0) + 1 #todos los mails van almacenados al dictionary, key spammer se asigna valor 0 sino esta
+    else:
+        continue
+
+maximum = None
+spam = None
+
+for spammer,count in di.items():                          #for key scammer and count (value) en el dictionary
+    if maximum is None or count > maximum:                 # si vaue count es menor a None > maximum =  none es el valor
+        spam = spammer                                    #el mail es igual a None
+        maximum = count                         # maximumes igual a count
+print(spam,maximum)                             #mail y cantidad de veces
